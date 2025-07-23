@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5050
 
 const __dirname = path.resolve();
 
-//app.use(cors());
+app.use(cors());
 //middleware, allows use to accept JSON data in req.body
 app.use(express.json());
 
