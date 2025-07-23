@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api.js";
 
 const SignUpPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -36,46 +37,29 @@ const SignUpPage = () => {
   };
 
   const handleSignup = async () => {
-    if (!validate()) return;
+  if (!validate()) return;
 
-    try {
-      const res = await fetch("http://localhost:5050/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+  try {
+    const { data } = await api.post("/auth/signup", form);
 
-      const data = await res.json();
+    toast({
+      title: "Signup successful",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
 
-      if (!res.ok) {
-        toast({
-          title: "Signup Failed",
-          description: data.message || "An error occurred.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-        return;
-      }
-
-      toast({
-        title: "Signup successful",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-
-      navigate("/login");
-    } catch (err) {
-      toast({
-        title: "Network Error",
-        description: err.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  };
+    navigate("/login");
+  } catch (err) {
+    toast({
+      title: "Signup Failed",
+      description: err.response?.data?.message || err.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
+};
 
   const bgColor = useColorModeValue("white", "gray.800");
   const pageBg = useColorModeValue("gray.100", "gray.900");
