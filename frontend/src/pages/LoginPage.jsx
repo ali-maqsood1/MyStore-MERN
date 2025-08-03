@@ -32,6 +32,7 @@ const LoginPage = () => {
   const pageBg = useColorModeValue("gray.100", "gray.900");
 
   return (
+    <>
     <Flex justify="center" align="center" minH="90vh" bg={pageBg}>
       <Box
         bg={bgColor}
@@ -59,6 +60,10 @@ const LoginPage = () => {
         </VStack>
       </Box>
     </Flex>
+      <Box textAlign="center" mt={4} mb={10} color="gray.500">
+        Made by Ali Maqsood &copy; 2025
+      </Box>
+    </>
   );
 };
 
