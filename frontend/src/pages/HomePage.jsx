@@ -84,6 +84,9 @@ const HomePage = () => {
 						<ProductCard key={product._id} product={product} />
 					))}
 				</SimpleGrid>
+	    	<Box textAlign="center" mt={12} color="gray.500">
+	          Made by Ali Maqsood &copy; 2025
+	        </Box>
     </Box>
   );
 };
